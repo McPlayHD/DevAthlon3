@@ -5,6 +5,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -91,9 +93,19 @@ public class PlayerListener implements Listener {
 	public void onPickup(PlayerPickupItemEvent e) {
 		e.setCancelled(true);
 	}
-	
+
 	@EventHandler
 	public void onFoodLevelChange(FoodLevelChangeEvent e) {
+		e.setCancelled(true);
+	}
+
+	@EventHandler
+	public void onBlockPlace(BlockPlaceEvent e) {
+		e.setCancelled(true);
+	}
+
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent e) {
 		e.setCancelled(true);
 	}
 
