@@ -1,12 +1,16 @@
 package me.mcplayhd.spellwar.listeners;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.mcplayhd.spellwar.SpellWar;
@@ -24,6 +28,7 @@ public class PlayerListener implements Listener {
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		plugin.am.mana.put(p, 64.0);
+		p.getInventory().clear();
 	}
 
 	@EventHandler
@@ -70,6 +75,23 @@ public class PlayerListener implements Listener {
 			break;
 		}
 		e.setDeathMessage(null);
+	}
+	
+	@EventHandler
+	public void onDrop(PlayerDropItemEvent e) {
+		e.setCancelled(true);
+	}
+	
+	@EventHandler
+	public void onPickup(PlayerPickupItemEvent e) {
+		e.setCancelled(true);
+	}
+	
+	@EventHandler
+	public void onInventoryClick(InventoryClickEvent e) {
+		if(e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.EMERALD) {
+			e.setCancelled(true);
+		}
 	}
 
 }

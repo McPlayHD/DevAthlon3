@@ -1,11 +1,9 @@
 package me.mcplayhd.spellwar;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.mcplayhd.spellwar.listeners.PlayerListener;
-import me.mcplayhd.spellwar.utils.AbilityManager;
+import me.mcplayhd.spellwar.managers.AbilityManager;
 
 public class SpellWar extends JavaPlugin {
 	
@@ -18,9 +16,6 @@ public class SpellWar extends JavaPlugin {
 		pl = new PlayerListener(this);
 		am = new AbilityManager(this);
 		getServer().getPluginManager().registerEvents(pl, this);
-		for(Player alle : Bukkit.getOnlinePlayers()) {
-			am.mana.put(alle, 64.0);
-		}
 	}
 	
 }

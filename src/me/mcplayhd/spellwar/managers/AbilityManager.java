@@ -1,7 +1,8 @@
-package me.mcplayhd.spellwar.utils;
+package me.mcplayhd.spellwar.managers;
 
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -14,6 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import me.mcplayhd.spellwar.SpellWar;
 import me.mcplayhd.spellwar.enums.EnumAbilitys.Abilitys;
+import me.mcplayhd.spellwar.utils.Ability;
 
 public class AbilityManager {
 
@@ -28,24 +30,13 @@ public class AbilityManager {
 
 	public AbilityManager(SpellWar plugin) {
 		this.plugin = plugin;
-		for(Abilitys ab : Abilitys.values()) {
-			switch(ab) {
-			case LEVITATION:
-				getAbility.put(Material.FEATHER, new Ability(ab, 25, 25, 10, new MaterialData(Material.SNOW), new PotionEffect(PotionEffectType.LEVITATION, 20*5, 1)));
-				break;
-			case DAMAGE:
-				getAbility.put(Material.NETHER_STALK, new Ability(ab, 20, 20, 10, new MaterialData(Material.REDSTONE_BLOCK), null));
-				break;
-			case POSION:
-				getAbility.put(Material.MAGMA_CREAM, new Ability(ab, 10, 30, 15, new MaterialData(Material.CACTUS), new PotionEffect(PotionEffectType.POISON, 20*6, 0)));
-				break;
-			case WITHER:
-				getAbility.put(Material.IRON_AXE, new Ability(ab, 15, 25, 10, new MaterialData(Material.NETHER_BRICK), new PotionEffect(PotionEffectType.WITHER, 20*10, 0)));
-				break;
-			default:
-				break;
-			}
+		for(Player alle : Bukkit.getOnlinePlayers()) {
+			mana.put(alle, 64.0);
 		}
+		getAbility.put(Material.FEATHER, new Ability(Abilitys.LEVITATION, 25, 25, 10, new MaterialData(Material.SNOW), new PotionEffect(PotionEffectType.LEVITATION, 20*5, 1)));
+		getAbility.put(Material.NETHER_STALK, new Ability(Abilitys.DAMAGE, 20, 20, 10, new MaterialData(Material.REDSTONE_BLOCK), null));
+		getAbility.put(Material.MAGMA_CREAM, new Ability(Abilitys.POSION, 10, 30, 15, new MaterialData(Material.CACTUS), new PotionEffect(PotionEffectType.POISON, 20*6, 0)));
+		getAbility.put(Material.IRON_AXE, new Ability(Abilitys.WITHER, 15, 25, 10, new MaterialData(Material.NETHER_BRICK), new PotionEffect(PotionEffectType.WITHER, 20*10, 0)));
 		new BukkitRunnable() {
 			@Override
 			public void run() {
