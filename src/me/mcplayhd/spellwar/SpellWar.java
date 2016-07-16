@@ -14,13 +14,6 @@ public class SpellWar extends JavaPlugin {
 	public PlayerListener pl;
 	public AbilityManager am;
 	
-	public enum Abilitys {
-		LEVITATION,
-		DAMAGE,
-		POSION,
-		WITHER,
-	}
-
 	public void onEnable() {
 		pl = new PlayerListener(this);
 		am = new AbilityManager(this);

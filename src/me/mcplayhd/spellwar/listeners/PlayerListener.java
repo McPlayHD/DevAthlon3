@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.mcplayhd.spellwar.SpellWar;
-import me.mcplayhd.spellwar.SpellWar.Abilitys;
+import me.mcplayhd.spellwar.enums.EnumAbilitys.Abilitys;
 
 public class PlayerListener implements Listener {
 
