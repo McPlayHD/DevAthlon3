@@ -47,15 +47,8 @@ public class PlayerListener implements Listener {
 		Player p = e.getPlayer();
 		if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if(p.getInventory().getItemInMainHand() != null) {
-				switch(p.getInventory().getItemInMainHand().getType()) {
-				case FEATHER:
-				case NETHER_STALK:
-				case MAGMA_CREAM:
-				case IRON_AXE:
+				if(plugin.am.getAbility.containsKey(p.getInventory().getItemInMainHand().getType())) {
 					plugin.am.shootSpell(p, plugin.am.getAbility.get(p.getInventory().getItemInMainHand().getType()));
-					break;
-				default:
-					break;
 				}
 			}
 		}
