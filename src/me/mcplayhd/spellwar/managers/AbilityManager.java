@@ -105,7 +105,7 @@ public class AbilityManager {
 	private void explosion(Player p, Ability a, Location loc) {
 		for(Player alle : loc.getWorld().getPlayers()) {
 			if(!plugin.save.contains(alle)) {
-				if(alle.getLocation().distance(loc) < 3 || alle.getEyeLocation().distance(loc) < 3) {
+				if(alle.getLocation().distance(loc) < 2 || alle.getEyeLocation().distance(loc) < 2) {
 					if(a.getAbility() != Abilitys.DAMAGE) {
 						alle.addPotionEffect(a.getPotionEffect());
 						switch(a.getAbility()) {
@@ -119,9 +119,11 @@ public class AbilityManager {
 							break;
 						}
 					} else {
-						alle.damage(5.0);
-						if(alle.getHealth() <= 0.0) {
-							killPlayer(alle, p, Abilitys.DAMAGE);
+						if(alle.getHealth() > 0.0) {
+							alle.damage(5.0);
+							if(alle.getHealth() <= 0.0) {
+								killPlayer(alle, p, Abilitys.DAMAGE);
+							}
 						}
 					}
 				}
