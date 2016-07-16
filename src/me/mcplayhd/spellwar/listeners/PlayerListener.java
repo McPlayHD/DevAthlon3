@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -57,7 +58,7 @@ public class PlayerListener implements Listener {
 			}
 		}
 	}
-	
+
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
 		Player p = e.getEntity();
@@ -79,27 +80,36 @@ public class PlayerListener implements Listener {
 		e.setDeathMessage(null);
 		e.getDrops().clear();
 	}
-	
+
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent e) {
 		Player p = e.getPlayer();
 		plugin.im.sendInventory(p);
 	}
-	
+
 	@EventHandler
 	public void onDrop(PlayerDropItemEvent e) {
 		e.setCancelled(true);
 	}
-	
+
 	@EventHandler
 	public void onPickup(PlayerPickupItemEvent e) {
 		e.setCancelled(true);
 	}
 	
 	@EventHandler
+	public void onFoodLevelChange(FoodLevelChangeEvent e) {
+		e.setCancelled(true);
+	}
+
+	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
-		if(e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.EMERALD) {
-			e.setCancelled(true);
+		if(e.getWhoClicked() instanceof Player) {
+			Player p = (Player) e.getWhoClicked();
+			if(e.getCurrentItem() != null && e.getCurrentItem().getType() == Material.EMERALD) {
+				e.setCancelled(true);
+				p.updateInventory();
+			}
 		}
 	}
 
