@@ -37,6 +37,7 @@ public class AbilityManager {
 		getAbility.put(Material.NETHER_STALK, new Ability(Abilitys.DAMAGE, 10, 30, 20, new MaterialData(Material.REDSTONE_BLOCK), null));
 		getAbility.put(Material.MAGMA_CREAM, new Ability(Abilitys.POSION, 10, 20, 10, new MaterialData(Material.CACTUS), new PotionEffect(PotionEffectType.POISON, 20*6, 0)));
 		getAbility.put(Material.COAL, new Ability(Abilitys.WITHER, 15, 25, 10, new MaterialData(Material.NETHER_BRICK), new PotionEffect(PotionEffectType.WITHER, 20*10, 0)));
+		getAbility.put(Material.SUGAR, new Ability(Abilitys.SLOW, 25, 25, 10, new MaterialData(Material.PACKED_ICE), new PotionEffect(PotionEffectType.SLOW, 20*5, 0)));
 		new BukkitRunnable() {
 			@Override
 			public void run() {

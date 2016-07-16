@@ -27,6 +27,12 @@ public class InventoryManager {
 		wart.setItemMeta(wartm);
 		items.put(Abilitys.DAMAGE, wart);
 		
+		ItemStack ice = new ItemStack(Material.PACKED_ICE, 1);
+		ItemMeta icem = ice.getItemMeta();
+		icem.setDisplayName("§bIce §emagic wand");
+		ice.setItemMeta(icem);
+		items.put(Abilitys.SLOW, ice);
+		
 		ItemStack cream = new ItemStack(Material.MAGMA_CREAM, 1);
 		ItemMeta creamm = cream.getItemMeta();
 		creamm.setDisplayName("§2Posion §emagic wand");
@@ -52,8 +58,9 @@ public class InventoryManager {
 	public void sendInventory(Player p) {
 		p.getInventory().setItem(0, items.get(Abilitys.LEVITATION));
 		p.getInventory().setItem(1, items.get(Abilitys.DAMAGE));
-		p.getInventory().setItem(2, items.get(Abilitys.POSION));
-		p.getInventory().setItem(3, items.get(Abilitys.WITHER));
+		p.getInventory().setItem(2, items.get(Abilitys.SLOW));
+		p.getInventory().setItem(3, items.get(Abilitys.POSION));
+		p.getInventory().setItem(4, items.get(Abilitys.WITHER));
 		
 		ItemStack mana = getManaItem();
 		mana.setAmount(64);

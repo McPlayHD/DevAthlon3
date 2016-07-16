@@ -7,6 +7,7 @@ public class EnumAbilitys {
 		DAMAGE,
 		POSION,
 		WITHER,
+		SLOW,
 	}
 
 }
