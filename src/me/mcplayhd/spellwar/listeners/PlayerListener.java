@@ -1,5 +1,6 @@
 package me.mcplayhd.spellwar.listeners;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,6 +18,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.mcplayhd.spellwar.SpellWar;
@@ -33,8 +35,20 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
-		plugin.am.mana.put(p, 64.0);
+		p.setHealth(20.0D);
+		p.setFoodLevel(20);
 		p.getInventory().clear();
+		p.getInventory().setArmorContents(null);
+		p.updateInventory();
+		p.setLevel(0);
+		p.setExp(0);
+		p.setGameMode(GameMode.SURVIVAL);
+		p.setAllowFlight(false);
+		p.setFlying(false);
+		for (PotionEffect effect : p.getActivePotionEffects()) {
+			p.removePotionEffect(effect.getType());
+		}
+		plugin.am.mana.put(p, 64.0);
 		plugin.im.sendInventory(p);
 		e.setJoinMessage(plugin.prefix + "§a" + p.getDisplayName() + " §3kämpft jetzt mit");
 		new BukkitRunnable() {
@@ -96,6 +110,7 @@ public class PlayerListener implements Listener {
 		}
 		e.setDeathMessage(null);
 		e.getDrops().clear();
+		e.setDroppedExp(0);
 		if(!plugin.save.contains(p)) {
 			plugin.save.add(p);
 		}
