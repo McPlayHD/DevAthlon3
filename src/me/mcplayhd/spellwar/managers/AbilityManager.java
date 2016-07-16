@@ -79,12 +79,14 @@ public class AbilityManager {
 						return;
 					}
 					for(Player alle : loc.getWorld().getPlayers()) {
-						if(alle != shooter) {
-							if(isInHitbox(loc, alle.getLocation())) {
-								explosion(p, a, loc);
-								//drop.remove();
-								cancel();
-								return;
+						if(!plugin.save.contains(alle)) {
+							if(alle != shooter) {
+								if(isInHitbox(loc, alle.getLocation())) {
+									explosion(p, a, loc);
+									//drop.remove();
+									cancel();
+									return;
+								}
 							}
 						}
 					}
@@ -99,32 +101,34 @@ public class AbilityManager {
 
 		}.runTaskTimer(plugin, 0, 1);
 	}
-	
+
 	private void explosion(Player p, Ability a, Location loc) {
 		for(Player alle : loc.getWorld().getPlayers()) {
-			if(alle.getLocation().distance(loc) < 3 || alle.getEyeLocation().distance(loc) < 3) {
-				if(a.getAbility() != Abilitys.DAMAGE) {
-					alle.addPotionEffect(a.getPotionEffect());
-					switch(a.getAbility()) {
-					case LEVITATION:
-						levitation.put(alle, p);
-						break;
-					case WITHER:
-						wither.put(alle, p);
-						break;
-					default:
-						break;
-					}
-				} else {
-					alle.damage(5.0);
-					if(alle.getHealth() <= 0.0) {
-						killPlayer(alle, p, Abilitys.DAMAGE);
+			if(!plugin.save.contains(alle)) {
+				if(alle.getLocation().distance(loc) < 3 || alle.getEyeLocation().distance(loc) < 3) {
+					if(a.getAbility() != Abilitys.DAMAGE) {
+						alle.addPotionEffect(a.getPotionEffect());
+						switch(a.getAbility()) {
+						case LEVITATION:
+							levitation.put(alle, p);
+							break;
+						case WITHER:
+							wither.put(alle, p);
+							break;
+						default:
+							break;
+						}
+					} else {
+						alle.damage(5.0);
+						if(alle.getHealth() <= 0.0) {
+							killPlayer(alle, p, Abilitys.DAMAGE);
+						}
 					}
 				}
 			}
 		}
 	}
-	
+
 	public void killPlayer(Player killed, Player killer, Abilitys a) {
 		String deathmessage = plugin.prefix + "§a" + killed.getDisplayName() + " §e";
 		if(killer == null || killer == killed) {

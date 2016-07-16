@@ -13,6 +13,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -42,14 +43,20 @@ public class PlayerListener implements Listener {
 			public void run() {
 				p.teleport(plugin.spawnloc);
 			}
-			
+
 		}.runTaskLater(plugin, 5);
+		if(!plugin.save.contains(p)) {
+			plugin.save.add(p);
+		}
 	}
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		plugin.am.mana.remove(p);
+		if(plugin.save.contains(p)) {
+			plugin.save.remove(p);
+		}
 		e.setQuitMessage(plugin.prefix + "§a" + p.getDisplayName() + " §3hat die Flucht ergriffen");
 	}
 
@@ -59,7 +66,11 @@ public class PlayerListener implements Listener {
 		if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if(p.getInventory().getItemInMainHand() != null) {
 				if(plugin.am.getAbility.containsKey(p.getInventory().getItemInMainHand().getType())) {
-					plugin.am.shootSpell(p, plugin.am.getAbility.get(p.getInventory().getItemInMainHand().getType()));
+					if(!plugin.save.contains(p)) {
+						plugin.am.shootSpell(p, plugin.am.getAbility.get(p.getInventory().getItemInMainHand().getType()));
+					} else {
+						p.sendMessage(plugin.prefix + "§eDu hast die Schutzzone noch nicht verlassen");
+					}
 				}
 			}
 		}
@@ -85,13 +96,32 @@ public class PlayerListener implements Listener {
 		}
 		e.setDeathMessage(null);
 		e.getDrops().clear();
+		if(!plugin.save.contains(p)) {
+			plugin.save.add(p);
+		}
 	}
 
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent e) {
 		Player p = e.getPlayer();
 		e.setRespawnLocation(plugin.spawnloc);
+		if(!plugin.save.contains(p)) {
+			plugin.save.add(p);
+		}
 		plugin.im.sendInventory(p);
+	}
+
+	@EventHandler
+	public void onMove(PlayerMoveEvent e) {
+		Player p = e.getPlayer();
+		if(plugin.save.contains(p)) {
+			double x = e.getTo().getX();
+			double z = e.getTo().getZ();
+			if(x > 2 || x < -2 || z > 2 || z < -2) {
+				plugin.save.remove(p);
+				p.sendMessage(plugin.prefix + "§eDu hast die Schutzzone verlassen");
+			}
+		}
 	}
 
 	@EventHandler
