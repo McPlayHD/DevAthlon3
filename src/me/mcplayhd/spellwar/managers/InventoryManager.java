@@ -32,11 +32,11 @@ public class InventoryManager {
 		cream.setItemMeta(creamm);
 		items.put(Abilitys.POSION, cream);
 		
-		ItemStack axe = new ItemStack(Material.IRON_AXE, 1);
-		ItemMeta axem = axe.getItemMeta();
-		axem.setDisplayName("§8Wither §emagic wand");
-		axe.setItemMeta(axem);
-		items.put(Abilitys.WITHER, axe);
+		ItemStack coal = new ItemStack(Material.COAL, 1);
+		ItemMeta coalm = coal.getItemMeta();
+		coalm.setDisplayName("§8Wither §emagic wand");
+		coal.setItemMeta(coalm);
+		items.put(Abilitys.WITHER, coal);
 	}
 	
 	public void sendInventory(Player p) {
