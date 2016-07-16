@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -93,6 +94,23 @@ public class PlayerListener implements Listener {
 					} else {
 						p.sendMessage(plugin.prefix + "§eDu hast die Schutzzone noch nicht verlassen");
 					}
+				}
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
+		if(e.getEntity() instanceof Player) {
+			Player p = (Player) e.getEntity();
+			if(plugin.save.contains(p)) {
+				e.setCancelled(true);
+			}
+			if(e.getDamager() instanceof Player) {
+				Player sender = (Player) e.getDamager();
+				if(plugin.save.contains(sender)) {
+					e.setCancelled(true);
+					p.sendMessage(plugin.prefix + "§eDu hast die Schutzzone noch nicht verlassen");
 				}
 			}
 		}
