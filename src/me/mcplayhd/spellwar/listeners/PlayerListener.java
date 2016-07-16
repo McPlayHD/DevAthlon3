@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 import me.mcplayhd.spellwar.SpellWar;
 import me.mcplayhd.spellwar.enums.EnumAbilitys.Abilitys;
@@ -29,6 +30,7 @@ public class PlayerListener implements Listener {
 		Player p = e.getPlayer();
 		plugin.am.mana.put(p, 64.0);
 		p.getInventory().clear();
+		plugin.im.sendInventory(p);
 	}
 
 	@EventHandler
@@ -75,6 +77,12 @@ public class PlayerListener implements Listener {
 			break;
 		}
 		e.setDeathMessage(null);
+	}
+	
+	@EventHandler
+	public void onRespawn(PlayerRespawnEvent e) {
+		Player p = e.getPlayer();
+		plugin.im.sendInventory(p);
 	}
 	
 	@EventHandler
