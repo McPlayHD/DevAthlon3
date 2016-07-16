@@ -77,6 +77,7 @@ public class PlayerListener implements Listener {
 			break;
 		}
 		e.setDeathMessage(null);
+		e.getDrops().clear();
 	}
 	
 	@EventHandler
