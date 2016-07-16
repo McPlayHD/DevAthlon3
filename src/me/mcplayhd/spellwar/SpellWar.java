@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.mcplayhd.spellwar.listeners.PlayerListener;
 import me.mcplayhd.spellwar.managers.AbilityManager;
+import me.mcplayhd.spellwar.managers.InventoryManager;
 
 public class SpellWar extends JavaPlugin {
 	
@@ -11,10 +12,12 @@ public class SpellWar extends JavaPlugin {
 	
 	public PlayerListener pl;
 	public AbilityManager am;
+	public InventoryManager im;
 	
 	public void onEnable() {
 		pl = new PlayerListener(this);
 		am = new AbilityManager(this);
+		im = new InventoryManager();
 		getServer().getPluginManager().registerEvents(pl, this);
 	}
 	
