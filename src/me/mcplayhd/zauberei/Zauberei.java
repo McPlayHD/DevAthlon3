@@ -1,5 +1,9 @@
 package me.mcplayhd.zauberei;
 
-public class Zauberei {
+import org.bukkit.plugin.java.JavaPlugin;
 
+public class Zauberei extends JavaPlugin {
+
+	
+	
 }
