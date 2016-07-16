@@ -1,6 +1,6 @@
 package me.mcplayhd.spellwar.enums;
 
-public class EnumAbilityss {
+public class EnumAbilitys {
 	
 	public enum Abilitys {
 		LEVITATION,

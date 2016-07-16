@@ -3,7 +3,7 @@ package me.mcplayhd.spellwar.utils;
 import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffect;
 
-import me.mcplayhd.spellwar.enums.EnumAbilityss.Abilitys;
+import me.mcplayhd.spellwar.enums.EnumAbilitys.Abilitys;
 
 public class Ability {
 	
