@@ -1,4 +1,4 @@
-package me.mcplayhd.zauberei.Listeners;
+package me.mcplayhd.spellwar.Listeners;
 
 import java.util.HashMap;
 
@@ -17,16 +17,16 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import me.mcplayhd.zauberei.Zauberei;
+import me.mcplayhd.spellwar.SpellWar;
 
 public class PlayerListener implements Listener {
 
 	final int MANAPERSECOUND = 20;
-	private Zauberei plugin;
+	private SpellWar plugin;
 	
 	public HashMap<Player, Double> mana = new HashMap<Player, Double>();
 
-	public PlayerListener(Zauberei plugin) {
+	public PlayerListener(SpellWar plugin) {
 		this.plugin = plugin;
 		new BukkitRunnable() {
 

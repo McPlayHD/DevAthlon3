@@ -1,10 +1,10 @@
-package me.mcplayhd.zauberei;
+package me.mcplayhd.spellwar;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.mcplayhd.zauberei.Listeners.PlayerListener;
+import me.mcplayhd.spellwar.Listeners.PlayerListener;
 
-public class Zauberei extends JavaPlugin {
+public class SpellWar extends JavaPlugin {
 
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new PlayerListener(this), this);

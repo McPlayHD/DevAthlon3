@@ -1,8 +1,8 @@
-name: Zauberei
+name: SpellWar
 version: 0.1
 author: McPlayHD
 website: http://mcplayhd.me/
 
-main: me.mcplayhd.zauberei.Zauberei
+main: me.mcplayhd.spellwar.SpellWar
 
 commands:
