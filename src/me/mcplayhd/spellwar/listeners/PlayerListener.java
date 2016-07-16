@@ -111,9 +111,6 @@ public class PlayerListener implements Listener {
 		e.setDeathMessage(null);
 		e.getDrops().clear();
 		e.setDroppedExp(0);
-		if(!plugin.save.contains(p)) {
-			plugin.save.add(p);
-		}
 	}
 
 	@EventHandler
@@ -132,7 +129,7 @@ public class PlayerListener implements Listener {
 		if(plugin.save.contains(p)) {
 			double x = e.getTo().getX();
 			double z = e.getTo().getZ();
-			if(x > 2 || x < -2 || z > 2 || z < -2) {
+			if(x > 2 || x < -1 || z > 2 || z < -1) {
 				plugin.save.remove(p);
 				p.sendMessage(plugin.prefix + "§eDu hast die Schutzzone verlassen");
 			}
