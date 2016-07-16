@@ -12,6 +12,7 @@ import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 import me.mcplayhd.spellwar.SpellWar;
 import me.mcplayhd.spellwar.enums.EnumAbilitys.Abilitys;
@@ -37,7 +38,7 @@ public class AbilityManager {
 		getAbility.put(Material.NETHER_STALK, new Ability(Abilitys.DAMAGE, 10, 30, 20, new MaterialData(Material.REDSTONE_BLOCK), null));
 		getAbility.put(Material.MAGMA_CREAM, new Ability(Abilitys.POSION, 10, 20, 10, new MaterialData(Material.CACTUS), new PotionEffect(PotionEffectType.POISON, 20*6, 0)));
 		getAbility.put(Material.COAL, new Ability(Abilitys.WITHER, 15, 25, 10, new MaterialData(Material.NETHER_BRICK), new PotionEffect(PotionEffectType.WITHER, 20*10, 0)));
-		getAbility.put(Material.SUGAR, new Ability(Abilitys.SLOW, 25, 25, 10, new MaterialData(Material.PACKED_ICE), new PotionEffect(PotionEffectType.SLOW, 20*5, 0)));
+		getAbility.put(Material.SUGAR, new Ability(Abilitys.SLOW, 25, 25, 10, new MaterialData(Material.PACKED_ICE), new PotionEffect(PotionEffectType.SLOW, 20*5, 2)));
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -74,7 +75,7 @@ public class AbilityManager {
 					loc.getWorld().spawnParticle(Particle.BLOCK_CRACK, loc, 10, 0.12, 0.12, 0.12, a.getBlockCrackMaterialData());
 					//drop.teleport(loc); //Fuktioniert nicht?
 					if(loc.getBlock().getType() != Material.AIR && loc.getBlock().getType().isBlock() && loc.getBlock().getType().isSolid()) {
-						explosion(p, a, loc);
+						explosion(p, a, loc, startloc.clone().getDirection().multiply(0.1));
 						//drop.remove();
 						cancel();
 						return;
@@ -83,7 +84,7 @@ public class AbilityManager {
 						if(!plugin.save.contains(alle)) {
 							if(alle != shooter) {
 								if(isInHitbox(loc, alle.getLocation())) {
-									explosion(p, a, loc);
+									explosion(p, a, loc, startloc.clone().getDirection().multiply(0.1));
 									//drop.remove();
 									cancel();
 									return;
@@ -103,10 +104,11 @@ public class AbilityManager {
 		}.runTaskTimer(plugin, 0, 1);
 	}
 
-	private void explosion(Player p, Ability a, Location loc) {
+	private void explosion(Player p, Ability a, Location loc, Vector vector) {
 		for(Player alle : loc.getWorld().getPlayers()) {
 			if(!plugin.save.contains(alle)) {
 				if(alle.getLocation().distance(loc) < 2 || alle.getEyeLocation().distance(loc) < 2) {
+					alle.setVelocity(p.getLocation().getDirection().add(vector));
 					if(a.getAbility() != Abilitys.DAMAGE) {
 						alle.addPotionEffect(a.getPotionEffect());
 						switch(a.getAbility()) {
