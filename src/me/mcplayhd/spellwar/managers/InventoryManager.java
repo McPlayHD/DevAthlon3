@@ -12,6 +12,7 @@ import me.mcplayhd.spellwar.enums.EnumAbilitys.Abilitys;
 public class InventoryManager {
 	
 	private HashMap<Abilitys, ItemStack> items = new HashMap<Abilitys, ItemStack>();
+	private ItemStack mana;
 
 	public InventoryManager() {
 		ItemStack feather = new ItemStack(Material.FEATHER, 1);
@@ -37,6 +38,15 @@ public class InventoryManager {
 		coalm.setDisplayName("§8Wither §emagic wand");
 		coal.setItemMeta(coalm);
 		items.put(Abilitys.WITHER, coal);
+		
+		mana = new ItemStack(Material.EMERALD, 1);
+		ItemMeta manam = mana.getItemMeta();
+		manam.setDisplayName("§bMana");
+		mana.setItemMeta(manam);
+	}
+	
+	public ItemStack getManaItem() {
+		return mana;
 	}
 	
 	public void sendInventory(Player p) {
@@ -45,7 +55,9 @@ public class InventoryManager {
 		p.getInventory().setItem(2, items.get(Abilitys.POSION));
 		p.getInventory().setItem(3, items.get(Abilitys.WITHER));
 		
-		p.getInventory().setItem(8, new ItemStack(Material.EMERALD, 64));
+		ItemStack mana = getManaItem();
+		mana.setAmount(64);
+		p.getInventory().setItem(8, mana);
 	}
 	
 }

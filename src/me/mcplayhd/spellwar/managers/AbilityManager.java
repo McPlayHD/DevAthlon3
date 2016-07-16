@@ -43,9 +43,9 @@ public class AbilityManager {
 				for(Player p : mana.keySet()) {
 					if(mana.get(p) < 64) {
 						mana.put(p, (mana.get(p) + (MANAPERSECOUND/10) > 64 ? 64 : mana.get(p) + (MANAPERSECOUND/10)));
-						ItemStack emeralds =  new ItemStack(Material.EMERALD);
-						emeralds.setAmount((int) Math.floor(mana.get(p)));
-						p.getInventory().setItem(8, emeralds);
+						ItemStack mana = plugin.im.getManaItem();
+						mana.setAmount((int) Math.floor(plugin.am.mana.get(p)));
+						p.getInventory().setItem(8, mana);
 					}
 				}
 			}
