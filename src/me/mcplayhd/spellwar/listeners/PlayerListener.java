@@ -1,4 +1,4 @@
-package me.mcplayhd.spellwar.Listeners;
+package me.mcplayhd.spellwar.listeners;
 
 import java.util.HashMap;
 
@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -21,7 +22,7 @@ import me.mcplayhd.spellwar.SpellWar;
 
 public class PlayerListener implements Listener {
 
-	final int MANAPERSECOUND = 20;
+	final int MANAPERSECOUND = 10;
 	private SpellWar plugin;
 	
 	public HashMap<Player, Double> mana = new HashMap<Player, Double>();
@@ -34,7 +35,7 @@ public class PlayerListener implements Listener {
 			public void run() {
 				for(Player p : mana.keySet()) {
 					if(mana.get(p) < 64) {
-						mana.put(p, (mana.get(p) + (MANAPERSECOUND/20) > 64 ? 64 : mana.get(p) + (MANAPERSECOUND/20)));
+						mana.put(p, (mana.get(p) + (MANAPERSECOUND/10) > 64 ? 64 : mana.get(p) + (MANAPERSECOUND/10)));
 						ItemStack emeralds =  new ItemStack(Material.EMERALD_BLOCK);
 						emeralds.setAmount((int) Math.floor(mana.get(p)));
 						p.getInventory().setItem(8, emeralds);
@@ -42,7 +43,7 @@ public class PlayerListener implements Listener {
 				}
 			}
 			
-		}.runTaskTimer(plugin, 0, 1);
+		}.runTaskTimer(plugin, 0, 2);
 	}
 	
 	@EventHandler
@@ -60,7 +61,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
-		if(e.getAction() == Action.RIGHT_CLICK_AIR) {
+		if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if(e.getItem().getType() == Material.STICK) {
 				double pmana = mana.get(p);
 				final double range = (pmana >= 25 ? 25 : pmana);
@@ -74,6 +75,7 @@ public class PlayerListener implements Listener {
 						for(int ticks = 0; ticks < 3; ticks ++) {
 							Location loc = startloc.clone().add(startloc.clone().getDirection().multiply(i));
 							loc.getWorld().spawnParticle(Particle.SPELL_WITCH, loc, 10, 0.12, 0.12, 0.12);
+							loc.getWorld().spawnParticle(Particle.BLOCK_CRACK, loc, 10, 0.12, 0.12, 0.12, new MaterialData(Material.REDSTONE_BLOCK));
 							if(loc.getBlock().getType() != Material.AIR) {
 								for(Player alle : loc.getWorld().getPlayers()) {
 									if(alle.getLocation().distance(loc) < 3 || p.getEyeLocation().distance(loc) < 3) {
