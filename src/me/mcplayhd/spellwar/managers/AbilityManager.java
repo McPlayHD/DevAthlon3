@@ -55,7 +55,7 @@ public class AbilityManager {
 	public void shootSpell(Player p, Ability a) {
 		double player_mana = mana.get(p);
 		if(player_mana < a.getMinMana()) {
-			p.sendMessage(plugin.prefix + "§cYou don't have enough mana");
+			p.sendMessage(plugin.prefix + "§cYou don't have enough §bmana");
 			return;
 		}
 		final double range = (player_mana >= a.getMaxMana() ? a.getRange() : (a.getRange()*player_mana)/a.getMaxMana());
@@ -72,7 +72,7 @@ public class AbilityManager {
 					loc.getWorld().spawnParticle(Particle.SPELL_WITCH, loc, 10, 0.12, 0.12, 0.12);
 					loc.getWorld().spawnParticle(Particle.BLOCK_CRACK, loc, 10, 0.12, 0.12, 0.12, a.getBlockCrackMaterialData());
 					//drop.teleport(loc); //Fuktioniert nicht?
-					if(loc.getBlock().getType() != Material.AIR) {
+					if(loc.getBlock().getType() != Material.AIR && loc.getBlock().getType().isBlock() && loc.getBlock().getType().isSolid()) {
 						explosion(p, a, loc);
 						//drop.remove();
 						cancel();
