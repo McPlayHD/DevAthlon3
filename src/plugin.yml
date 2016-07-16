@@ -1,0 +1,8 @@
+name: Zauberei
+version: 0.1
+author: McPlayHD
+website: http://mcplayhd.me/
+
+main: me.mcplayhd.zauberei.Zauberei
+
+commands:
