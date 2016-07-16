@@ -13,7 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.mcplayhd.spellwar.SpellWar;
-import me.mcplayhd.spellwar.enums.EnumAbilitys.Abilitys;
+import me.mcplayhd.spellwar.enums.EnumAbilityss.Abilitys;
 
 public class AbilityManager {
 
