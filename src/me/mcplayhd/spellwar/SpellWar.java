@@ -1,6 +1,8 @@
 package me.mcplayhd.spellwar;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -17,7 +19,7 @@ public class SpellWar extends JavaPlugin {
 	public AbilityManager am;
 	public InventoryManager im;
 	
-	public boolean ready = false;
+	public Location spawnloc;
 	
 	public void onEnable() {
 		pl = new PlayerListener(this);
@@ -25,7 +27,8 @@ public class SpellWar extends JavaPlugin {
 		im = new InventoryManager();
 		getServer().getPluginManager().registerEvents(pl, this);
 		if(new WorldManager(this).loadWorld("SpellWar")) {
-			ready = true;
+			World w = getServer().getWorld("SpellWar");
+			spawnloc = new Location(w, 0.5, w.getHighestBlockYAt(0, 0) + 1.5, 0.5);
 		} else {
 			System.out.println("§cCouldn't find any map named \"SpellWar\". Stopping the server...");
 			new BukkitRunnable() {

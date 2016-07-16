@@ -16,6 +16,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import me.mcplayhd.spellwar.SpellWar;
 import me.mcplayhd.spellwar.enums.EnumAbilitys.Abilitys;
@@ -35,6 +36,14 @@ public class PlayerListener implements Listener {
 		p.getInventory().clear();
 		plugin.im.sendInventory(p);
 		e.setJoinMessage(plugin.prefix + "§a" + p.getDisplayName() + " §3kämpft jetzt mit");
+		new BukkitRunnable() {
+
+			@Override
+			public void run() {
+				p.teleport(plugin.spawnloc);
+			}
+			
+		}.runTaskLater(plugin, 5);
 	}
 
 	@EventHandler
@@ -81,6 +90,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent e) {
 		Player p = e.getPlayer();
+		e.setRespawnLocation(plugin.spawnloc);
 		plugin.im.sendInventory(p);
 	}
 
