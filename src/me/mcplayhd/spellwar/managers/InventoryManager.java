@@ -27,7 +27,7 @@ public class InventoryManager {
 		wart.setItemMeta(wartm);
 		items.put(Abilitys.DAMAGE, wart);
 		
-		ItemStack ice = new ItemStack(Material.PACKED_ICE, 1);
+		ItemStack ice = new ItemStack(Material.SUGAR, 1);
 		ItemMeta icem = ice.getItemMeta();
 		icem.setDisplayName("§bIce §emagic wand");
 		ice.setItemMeta(icem);
