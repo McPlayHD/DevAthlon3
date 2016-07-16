@@ -64,7 +64,7 @@ public class PlayerListener implements Listener {
 
 			@Override
 			public void run() {
-				p.setResourcePack("http://mcplayhd.net/dwl/rp/spellwar/SpellWar-Pack.zip");
+				p.setResourcePack("http://mcplayhd.net/dwl/rp/spellwar/SpellWar-ResourcePack.zip");
 			}
 
 		}.runTaskLater(plugin, 20);
