@@ -32,12 +32,14 @@ public class PlayerListener implements Listener {
 		plugin.am.mana.put(p, 64.0);
 		p.getInventory().clear();
 		plugin.im.sendInventory(p);
+		e.setJoinMessage(plugin.prefix + "§a" + p.getDisplayName() + " §3kämpft jetzt mit");
 	}
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		plugin.am.mana.remove(p);
+		e.setQuitMessage(plugin.prefix + "§a" + p.getDisplayName() + " §3hat die Flucht ergriffen");
 	}
 
 	@EventHandler
