@@ -34,8 +34,8 @@ public class AbilityManager {
 			mana.put(alle, 64.0);
 		}
 		getAbility.put(Material.FEATHER, new Ability(Abilitys.LEVITATION, 25, 25, 10, new MaterialData(Material.SNOW), new PotionEffect(PotionEffectType.LEVITATION, 20*5, 1)));
-		getAbility.put(Material.NETHER_STALK, new Ability(Abilitys.DAMAGE, 20, 20, 10, new MaterialData(Material.REDSTONE_BLOCK), null));
-		getAbility.put(Material.MAGMA_CREAM, new Ability(Abilitys.POSION, 10, 30, 15, new MaterialData(Material.CACTUS), new PotionEffect(PotionEffectType.POISON, 20*6, 0)));
+		getAbility.put(Material.NETHER_STALK, new Ability(Abilitys.DAMAGE, 10, 30, 20, new MaterialData(Material.REDSTONE_BLOCK), null));
+		getAbility.put(Material.MAGMA_CREAM, new Ability(Abilitys.POSION, 10, 20, 10, new MaterialData(Material.CACTUS), new PotionEffect(PotionEffectType.POISON, 20*6, 0)));
 		getAbility.put(Material.IRON_AXE, new Ability(Abilitys.WITHER, 15, 25, 10, new MaterialData(Material.NETHER_BRICK), new PotionEffect(PotionEffectType.WITHER, 20*10, 0)));
 		new BukkitRunnable() {
 			@Override
@@ -127,7 +127,7 @@ public class AbilityManager {
 	
 	public void killPlayer(Player killed, Player killer, Abilitys a) {
 		String deathmessage = plugin.prefix + "§a" + killed.getDisplayName() + " §e";
-		if(killer == null) {
+		if(killer == null || killer == killed) {
 			deathmessage += "hat §4Suizid §ebegangen";
 			plugin.getServer().broadcastMessage(deathmessage);
 			return;
