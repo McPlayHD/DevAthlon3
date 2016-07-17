@@ -65,6 +65,7 @@ public class PlayerListener implements Listener {
 			@Override
 			public void run() {
 				p.setResourcePack("http://mcplayhd.net/dwl/rp/spellwar/SpellWar-ResourcePack.zip");
+				p.sendMessage(plugin.prefix + "§eUm die Schussbahnen sehen zu können, solltest du die Partikel mindestens auf 'Minimal' haben.");
 			}
 
 		}.runTaskLater(plugin, 20);

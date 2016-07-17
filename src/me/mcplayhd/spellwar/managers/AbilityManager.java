@@ -57,7 +57,7 @@ public class AbilityManager {
 	public void shootSpell(Player p, Ability a) {
 		double player_mana = mana.get(p);
 		if(player_mana < a.getMinMana()) {
-			p.sendMessage(plugin.prefix + "§cYou don't have enough §bmana");
+			p.sendMessage(plugin.prefix + "§cDu hast nicht genug §aManapunkte");
 			return;
 		}
 		final double range = (player_mana >= a.getMaxMana() ? a.getRange() : (a.getRange()*player_mana)/a.getMaxMana());
@@ -65,7 +65,6 @@ public class AbilityManager {
 		new BukkitRunnable() {
 			final Location startloc = p.getEyeLocation();
 			final Player shooter = p;
-			//final Item drop = startloc.getWorld().dropItem(startloc, new ItemStack(Material.CHORUS_FRUIT_POPPED, 1));
 			double i = 0.5;
 			@Override
 			public void run() {
@@ -73,10 +72,8 @@ public class AbilityManager {
 					Location loc = startloc.clone().add(startloc.clone().getDirection().multiply(i));
 					loc.getWorld().spawnParticle(Particle.SPELL_WITCH, loc, 10, 0.12, 0.12, 0.12);
 					loc.getWorld().spawnParticle(Particle.BLOCK_CRACK, loc, 10, 0.12, 0.12, 0.12, a.getBlockCrackMaterialData());
-					//drop.teleport(loc); //Fuktioniert nicht?
 					if(loc.getBlock().getType() != Material.AIR && loc.getBlock().getType().isBlock() && loc.getBlock().getType().isSolid()) {
 						explosion(p, a, loc, startloc.clone().getDirection().multiply(0.1));
-						//drop.remove();
 						cancel();
 						return;
 					}
@@ -85,7 +82,6 @@ public class AbilityManager {
 							if(alle != shooter) {
 								if(isInHitbox(loc, alle.getLocation())) {
 									explosion(p, a, loc, startloc.clone().getDirection().multiply(0.1));
-									//drop.remove();
 									cancel();
 									return;
 								}
@@ -94,7 +90,6 @@ public class AbilityManager {
 					}
 					i += 0.5;
 					if(i > range) {
-						//drop.remove();
 						cancel();
 						return;
 					}
@@ -147,7 +142,7 @@ public class AbilityManager {
 			deathmessage += "zu weit in die Lüfte gehoben";
 			break;
 		case DAMAGE:
-			deathmessage += "zerstört";
+			deathmessage += "zertrümmert";
 			break;
 		case WITHER:
 			deathmessage += "mit dunkler Magie erledigt";

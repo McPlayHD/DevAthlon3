@@ -47,7 +47,7 @@ public class InventoryManager {
 		
 		mana = new ItemStack(Material.EMERALD, 1);
 		ItemMeta manam = mana.getItemMeta();
-		manam.setDisplayName("§bMana");
+		manam.setDisplayName("§aManapunkte");
 		mana.setItemMeta(manam);
 	}
 	
