@@ -57,7 +57,7 @@ public class AbilityManager {
 	public void shootSpell(Player p, Ability a) {
 		double player_mana = mana.get(p);
 		if(player_mana < a.getMinMana()) {
-			p.sendMessage(plugin.prefix + "§cDu hast nicht genug §aManapunkte");
+			p.sendMessage(plugin.prefix + "§cDu hast nicht genug §aMana");
 			return;
 		}
 		final double range = (player_mana >= a.getMaxMana() ? a.getRange() : (a.getRange()*player_mana)/a.getMaxMana());
