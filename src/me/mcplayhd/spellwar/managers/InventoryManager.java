@@ -35,7 +35,7 @@ public class InventoryManager {
 		
 		ItemStack cream = new ItemStack(Material.MAGMA_CREAM, 1);
 		ItemMeta creamm = cream.getItemMeta();
-		creamm.setDisplayName("§2Posion §emagic wand");
+		creamm.setDisplayName("§2Poison §emagic wand");
 		cream.setItemMeta(creamm);
 		items.put(Abilitys.POSION, cream);
 		
